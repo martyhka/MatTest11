@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Учебные мини-игры</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gradient-to-br from-sky-400/10 via-zinc-800 to-purple-950 min-h-screen p-4"
+  >
+    <div class="max-w-6xl mx-auto">
+      <!-- Навигация -->
+      <div class="text-center mb-6">
+        <div
+          class="bg-white/10 backdrop-blur-sm rounded-2xl p-4 inline-flex gap-3"
+        >
+          <button
+            id="vocabBtn"
+            class="px-6 py-2 rounded-lg font-bold text-white bg-purple-700 hover:bg-purple-800 transition"
+          >
+            📚 Словарь
+          </button>
+          <button
+            id="mathBtn"
+            class="px-6 py-2 rounded-lg font-bold text-white bg-green-500 hover:bg-green-600 transition"
+          >
+            🔢 Умножение
+          </button>
+          <button
+            id="equaBtn"
+            class="px-6 py-2 rounded-lg font-bold text-white bg-orange-500 hover:bg-orange-600 transition"
+          >
+            ⚖️ Уравнения
+          </button>
+          <button
+            id="calcBtn"
+            class="px-6 py-2 rounded-lg font-bold text-white bg-indigo-500 hover:bg-indigo-600 transition"
+          >
+            🧮 Вычисления
+          </button>
+          <button
+            id="compareBtn"
+            class="px-6 py-2 rounded-lg font-bold text-white bg-pink-500 hover:bg-pink-600 transition"
+          >
+            ➡️ Сравнения
+          </button>
+        </div>
+      </div>
+
+      <!-- СЛОВАРЬ -->
+      <section id="vocabPage">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold text-white mb-2">
+            🎯 Геометрические термины
+          </h1>
+          <p class="text-white/90 text-lg">
+            Перетащите термины к их определениям!
+          </p>
+          <div class="mt-4 flex justify-center items-center gap-4">
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Счёт: <span id="score">0</span>/6</span
+              >
+            </div>
+            <button
+              id="hintBtn"
+              class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              💡 Подсказка
+            </button>
+            <button
+              id="resetBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              🔄 Сброс
+            </button>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">
+              📚 Термины
+            </h2>
+            <div id="termsContainer" class="space-y-3"></div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            <h2 class="text-2xl font-bold text-white mb-4 text-center">
+              📖 Определения
+            </h2>
+            <div id="definitionsContainer" class="space-y-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- УМНОЖЕНИЕ -->
+      <section id="mathPage" class="hidden">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold text-white mb-2">
+            🔢 Таблица умножения
+          </h1>
+          <p class="text-white/90 text-lg">Решите примеры умножения!</p>
+          <div class="mt-4 flex justify-center items-center gap-4">
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Правильно: <span id="mathScore">0</span></span
+              >
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Неправильно: <span id="mathWrong">0</span></span
+              >
+            </div>
+            <button
+              id="newProblemBtn"
+              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              ➡️ Новый пример
+            </button>
+          </div>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+            <div id="mathProblem" class="text-6xl font-bold text-white mb-8">
+              2 × 3 = ?
+            </div>
+            <div
+              id="answerOptions"
+              class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"
+            ></div>
+            <div id="mathFeedback" class="text-2xl font-bold mb-4 h-8"></div>
+            <div class="text-white/70"><p>Выберите правильный ответ</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- УРАВНЕНИЯ -->
+      <section id="equaPage" class="hidden">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold text-white mb-2">
+            ⚖️ Простые уравнения
+          </h1>
+          <p class="text-white/90 text-lg">Найдите значение x.</p>
+          <div class="mt-4 flex justify-center items-center gap-4">
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Правильно: <span id="equationScore">0</span></span
+              >
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Неправильно: <span id="equationWrong">0</span></span
+              >
+            </div>
+            <button
+              id="newEquationBtn"
+              class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              ➡️ Новое уравнение
+            </button>
+          </div>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+            <div
+              id="equationProblem"
+              class="text-6xl font-bold text-white mb-8"
+            >
+              x + 5 = 12
+            </div>
+            <div class="mb-6">
+              <p class="text-white/90 text-xl mb-4">Чему равен x?</p>
+              <input
+                id="equationInput"
+                type="number"
+                class="text-4xl font-bold text-center bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 rounded-lg px-6 py-4 w-32 focus:outline-none focus:border-yellow-400"
+                placeholder="x"
+              />
+            </div>
+            <button
+              id="checkEquationBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-xl transition mb-6"
+            >
+              Проверить
+            </button>
+            <div
+              id="equationFeedback"
+              class="text-2xl font-bold mb-4 h-8"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ВЫЧИСЛЕНИЯ -->
+      <section id="calcPage" class="hidden">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold text-white mb-2">
+            🧮 Порядок операций
+          </h1>
+          <p class="text-white/90 text-lg">Сначала умножение, потом +/−.</p>
+          <div class="mt-4 flex justify-center items-center gap-4">
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Правильно: <span id="calcScore">0</span></span
+              >
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Неправильно: <span id="calcWrong">0</span></span
+              >
+            </div>
+            <button
+              id="newCalcBtn"
+              class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              ➡️ Новый пример
+            </button>
+          </div>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+            <div id="calcProblem" class="text-5xl font-bold text-white mb-8">
+              3 + 4 × 2 = ?
+            </div>
+            <div class="mb-6">
+              <p class="text-white/90 text-xl mb-4">Введите ответ:</p>
+              <input
+                id="calcInput"
+                type="number"
+                class="text-4xl font-bold text-center bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 rounded-lg px-6 py-4 w-40 focus:outline-none focus:border-yellow-400"
+                placeholder="?"
+              />
+            </div>
+            <button
+              id="checkCalcBtn"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-xl transition mb-6"
+            >
+              Проверить
+            </button>
+            <div id="calcFeedback" class="text-2xl font-bold mb-4 h-8"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- СРАВНЕНИЯ -->
+      <section id="comparePage" class="hidden">
+        <div class="text-center mb-8">
+          <h1 class="text-4xl font-bold text-white mb-2">➡️ Сравнения чисел</h1>
+          <p class="text-white/90 text-lg">
+            Выберите правильный знак: &lt; = &gt;
+          </p>
+          <div class="mt-4 flex justify-center items-center gap-4">
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Правильно: <span id="cmpScore">0</span></span
+              >
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+              <span class="text-white font-semibold"
+                >Неправильно: <span id="cmpWrong">0</span></span
+              >
+            </div>
+            <button
+              id="newCmpBtn"
+              class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg transition"
+            >
+              ➡️ Новое сравнение
+            </button>
+          </div>
+        </div>
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+            <div id="cmpProblem" class="text-6xl font-bold text-white mb-8">
+              7 ? 12
+            </div>
+            <div class="flex justify-center gap-4">
+              <button
+                class="cmpBtn bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg text-3xl"
+              >
+                &lt;
+              </button>
+              <button
+                class="cmpBtn bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg text-3xl"
+              >
+                =
+              </button>
+              <button
+                class="cmpBtn bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg text-3xl"
+              >
+                &gt;
+              </button>
+            </div>
+            <div id="cmpFeedback" class="text-2xl font-bold mt-6 h-8"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Празднование -->
+      <div
+        id="celebration"
+        class="fixed inset-0 pointer-events-none z-50"
+      ></div>
+    </div>
+
+    <!-- Скрипт приложения -->
+    <script src="./js/app.js"></script>
+  </body>
+</html>
